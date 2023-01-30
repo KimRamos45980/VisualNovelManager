@@ -1,0 +1,20 @@
+﻿.mainContainer {
+    margin-top: 2%;
+}
+
+h1,h2 {
+    text-align: center;
+}
+
+.row {
+    margin-top: 2%;
+    justify-content: center;
+}
+
+button {
+    margin-bottom: 2%;
+}
+
+.form-floating {
+    margin: 3% 0 3% 0;
+}
