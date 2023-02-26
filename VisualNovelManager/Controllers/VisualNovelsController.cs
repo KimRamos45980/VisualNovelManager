@@ -28,11 +28,12 @@ namespace VisualNovelManager.Controllers
         // GET: VisualNovels
         public async Task<IActionResult> Index()
         {
-            var model = await _context.VisualNovel
-                                      .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
-                                      .ToListAsync();
+            //var model = await _context.VisualNovel
+            //                          .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            //                          .ToListAsync();
+            //return View(model);
 
-            return View(model);
+            return View(await _context.VisualNovel.ToListAsync());
         }
 
         // GET: VisualNovels/Details/5
@@ -108,7 +109,7 @@ namespace VisualNovelManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, VisualNovel visualNovel)
+        public async Task<IActionResult> Edit(int id, VisualNovelViewModel visualNovel)
         {
             if (id != visualNovel.GameId)
             {
@@ -119,7 +120,12 @@ namespace VisualNovelManager.Controllers
             {
                 try
                 {
-                    _context.Update(visualNovel);
+                    var novel = _context.VisualNovel.Find(visualNovel.GameId);
+
+                    novel.GameTitle = visualNovel.GameTitle;
+                    novel.GameAlias = visualNovel.GameAlias;
+                    novel.CompletionStatus = visualNovel.CompletionStatus;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
