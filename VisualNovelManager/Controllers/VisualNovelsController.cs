@@ -56,6 +56,14 @@ namespace VisualNovelManager.Controllers
         // GET: VisualNovels/Create
         public IActionResult Create()
         {
+            List<SelectListItem> status = new List<SelectListItem>
+                {
+                    new SelectListItem{Value="Completed", Text = "Completed"},
+                    new SelectListItem{Value="Reading", Text = "Reading"},
+                    new SelectListItem{Value="On Hold", Text = "On Hold"},
+                    new SelectListItem{Value="Dropped", Text = "Dropped"}
+                };
+            ViewBag.status = status;
             return View();
         }
 
@@ -89,6 +97,15 @@ namespace VisualNovelManager.Controllers
         // GET: VisualNovels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            List<SelectListItem> status = new List<SelectListItem>
+                {
+                    new SelectListItem{Value="Completed", Text = "Completed"},
+                    new SelectListItem{Value="Reading", Text = "Reading"},
+                    new SelectListItem{Value="On Hold", Text = "On Hold"},
+                    new SelectListItem{Value="Dropped", Text = "Dropped"}
+                };
+            ViewBag.status = status;
+
             if (id == null || _context.VisualNovel == null)
             {
                 return NotFound();
