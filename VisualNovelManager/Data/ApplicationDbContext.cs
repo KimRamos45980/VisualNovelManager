@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using VisualNovelManager.Models;
 
 namespace VisualNovelManager.Data
 {
@@ -9,5 +10,6 @@ namespace VisualNovelManager.Data
             : base(options)
         {
         }
+        public DbSet<VisualNovelManager.Models.VisualNovel> VisualNovel { get; set; }
     }
 }
