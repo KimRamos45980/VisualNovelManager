@@ -11,14 +11,18 @@ namespace VisualNovelManager.Models
         public string? VndbId { get; set; }             // VNDB id if user used API search fill-in
 
         [Required]
+        [Display(Name = "Title")]
         public string GameTitle { get; set; }           // Name of the Visual Novel
 
+        [Display(Name = "Alias")]
         public string? GameAlias { get; set; }          // Fan given name for the Visual Novel (Used in casual conversation)
 
         [Required]
+        [Display(Name = "Completion Status")]
         public string CompletionStatus { get; set; }    // User's state of game completion
 
-        public string? UserId { get; set; }             // Which user in database added the game to display in their lists
+        [Required]
+        public string UserId { get; set; }              // Which user in database added the game to display in their lists
 
         //ToDo: Upload Image Option.                    // Cover image of the Visual Novel
     }
