@@ -28,12 +28,11 @@ namespace VisualNovelManager.Controllers
         // GET: VisualNovels
         public async Task<IActionResult> Index()
         {
-            //var model = await _context.VisualNovel
-            //                          .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
-            //                          .ToListAsync();
-            //return View(model);
+            var model = await _context.VisualNovel
+                                      .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                                      .ToListAsync();
 
-            return View(await _context.VisualNovel.ToListAsync());
+            return View(model);
         }
 
         // GET: VisualNovels/Details/5
