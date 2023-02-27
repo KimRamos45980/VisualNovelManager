@@ -13,19 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.VndbId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.GameTitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GameAlias)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CompletionStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th></th>
         </tr>
@@ -33,25 +24,23 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VndbId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameAlias)
-            </td>
-            <td>
+                @if (!String.IsNullOrEmpty(item.GameAlias))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GameAlias)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GameTitle)
+                    </td>
+                }
+                <td>
                 @Html.DisplayFor(modelItem => item.CompletionStatus)
-            </td>
+                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.GameId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GameId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GameId">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.GameId">Details</a>
             </td>
         </tr>
 }
