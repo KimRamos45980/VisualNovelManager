@@ -28,6 +28,7 @@ namespace VisualNovelManager.Controllers
         // GET: VisualNovels
         public async Task<IActionResult> Index()
         {
+            // Grab all Visual Novels created by the currently logged in user and display only those
             var model = await _context.VisualNovel
                                       .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                                       .ToListAsync();
@@ -56,6 +57,7 @@ namespace VisualNovelManager.Controllers
         // GET: VisualNovels/Create
         public IActionResult Create()
         {
+            // Create list of options for user to select as completion status
             List<SelectListItem> status = new List<SelectListItem>
                 {
                     new SelectListItem{Value="Completed", Text = "Completed"},
@@ -76,6 +78,7 @@ namespace VisualNovelManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Grab currently logged in user
                 IdentityUser identityUser = await _userManager.GetUserAsync(User);
 
                 VisualNovel newVN = new()
@@ -90,7 +93,6 @@ namespace VisualNovelManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
             return View(visualNovel);
         }
 
@@ -136,8 +138,10 @@ namespace VisualNovelManager.Controllers
             {
                 try
                 {
+                    // Grab the selected visual novel from database
                     var novel = _context.VisualNovel.Find(visualNovel.GameId);
 
+                    // Set all values to new/updated values
                     novel.GameTitle = visualNovel.GameTitle;
                     novel.GameAlias = visualNovel.GameAlias;
                     novel.CompletionStatus = visualNovel.CompletionStatus;
@@ -157,7 +161,7 @@ namespace VisualNovelManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
+            //var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
             return View(visualNovel);
         }
 
