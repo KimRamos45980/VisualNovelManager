@@ -11,5 +11,6 @@ namespace VisualNovelManager.Data
         {
         }
         public DbSet<VisualNovelManager.Models.VisualNovel> VisualNovel { get; set; }
+        public DbSet<VisualNovelManager.Models.VNList> VNList { get; set; }
     }
 }
