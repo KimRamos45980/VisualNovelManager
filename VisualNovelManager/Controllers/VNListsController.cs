@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +51,11 @@ namespace VisualNovelManager.Controllers
         // GET: VNLists/Create
         public IActionResult Create()
         {
-            return View();
+            VNListCreateViewModel viewModel = new();
+            viewModel.AllAvailableVN = _context.VisualNovel
+                            .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                            .OrderBy(i => i.GameTitle).ToList();
+            return View(viewModel);
         }
 
         // POST: VNLists/Create
@@ -57,11 +63,21 @@ namespace VisualNovelManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ListId,UserId,ListName,ListDescription,List")] VNList vNList)
+        public async Task<IActionResult> Create(VNListCreateViewModel vNList)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vNList);
+                // Grab currently logged in user
+                IdentityUser identityUser = await _userManager.GetUserAsync(User);
+
+                VNList newVnList = new()
+                {
+                    UserId = identityUser.Id,
+                    ListName = vNList.ListName,
+                    ListDescription = vNList.ListDescription,
+                };
+
+                _context.Add(newVnList);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
