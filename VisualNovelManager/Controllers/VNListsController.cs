@@ -51,11 +51,12 @@ namespace VisualNovelManager.Controllers
         // GET: VNLists/Create
         public IActionResult Create()
         {
-            VNListCreateViewModel viewModel = new();
-            viewModel.AllAvailableVN = _context.VisualNovel
-                            .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
-                            .OrderBy(i => i.GameTitle).ToList();
-            return View(viewModel);
+            List<VisualNovel> AllAvailableVN = new List<VisualNovel>();
+            AllAvailableVN = _context.VisualNovel
+                                      .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                                      .ToList();
+            ViewBag.AllAvailableVN = AllAvailableVN;
+            return View();
         }
 
         // POST: VNLists/Create
