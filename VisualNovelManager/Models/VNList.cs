@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace VisualNovelManager.Models
@@ -19,5 +20,16 @@ namespace VisualNovelManager.Models
         [Required]
         public string List { get; set; }                // String of Visual Novels added to the list
 
+    }
+
+    public class VNListCreateViewModel
+    {
+        public string ListName { get; set; }
+
+        public string ListDescription { get; set; }
+
+        public List<VisualNovel> AllAvailableVN { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }
