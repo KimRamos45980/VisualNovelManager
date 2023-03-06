@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
 namespace VisualNovelManager.Models
@@ -28,8 +29,7 @@ namespace VisualNovelManager.Models
 
         public string ListDescription { get; set; }
 
-        public List<VisualNovel> AllAvailableVN { get; set; }
-
-        public bool IsChecked { get; set; }
+        public string List { get; set; }
+        public string ListSelection { get; set; }
     }
 }
